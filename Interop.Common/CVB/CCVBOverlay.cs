@@ -307,7 +307,7 @@ namespace Interop.Common.CVB
                 Cvb.Plugin.TPenStylePlugInData data = new Cvb.Plugin.TPenStylePlugInData( Cvb.Plugin.TPenStyle.SOLID, 1 );
                 _dp.AddOverlayObjectNET( "SmartRectangle", string.Format( "SmartRectangle #{0:0} overlay", _id ), _Drag, false
                                                   , (int)System.Drawing.ColorTranslator.ToWin32( System.Drawing.Color.Yellow )
-                                                  , System.Drawing.Color.Blue.ToArgb(), false, _id, pixels.ToInt64(), data.ToIntPtr() );
+                                                  , System.Drawing.Color.Blue.ToArgb(), false, _id, pixels.ToInt32(), data.ToIntPtr() );
 
                 Cvb.Image.ReleaseObj( pixels );
             }

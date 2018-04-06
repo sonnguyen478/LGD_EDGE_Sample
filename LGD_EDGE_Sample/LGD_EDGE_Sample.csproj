@@ -33,9 +33,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="iCVCEdge, Version=2.2.0.0, Culture=neutral, PublicKeyToken=1c1e944060a09e75, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCEdge.dll</HintPath>
+    </Reference>
+    <Reference Include="iCVCImg, Version=2.13.0.0, Culture=neutral, PublicKeyToken=b2f68e8c22ab88a7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCImg.dll</HintPath>
+    </Reference>
+    <Reference Include="iCVCPlugIn, Version=3.2.0.0, Culture=neutral, PublicKeyToken=52e10bd3f5da1e86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCPlugIn.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -105,6 +118,14 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+    <COMReference Include="AxCVEDGELib">
+      <Guid>{CBABDE6B-5F53-4598-A0AA-4F1EC6310BA1}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
     <COMReference Include="AxCVGRABBERLib">
       <Guid>{4FC36254-4B46-11D3-9912-0060082C35E6}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -121,26 +142,8 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
-    <COMReference Include="CVDISPLAYLib">
-      <Guid>{289A0003-32DD-11D3-98F3-0060082C35E6}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CVGRABBERLib">
-      <Guid>{4FC36254-4B46-11D3-9912-0060082C35E6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CVIMAGELib">
-      <Guid>{A9632CBC-48B9-11D3-990E-0060082C35E6}</Guid>
+    <COMReference Include="CVEDGELib">
+      <Guid>{CBABDE6B-5F53-4598-A0AA-4F1EC6310BA1}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

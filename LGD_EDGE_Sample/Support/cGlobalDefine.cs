@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace LGD_EDGE_Sample
 {
@@ -48,6 +44,7 @@ namespace LGD_EDGE_Sample
             HEARTBIT = 0,
             INSP_START = 1,
             INSP_COMP = 2,
+            INSP_RESULT = 3,
         }
 
         public struct stProdCount

@@ -13,11 +13,11 @@
         /// <param name="disposing">관리되는 리소스를 삭제해야 하면 true이고, 그렇지 않으면 false입니다.</param>
         protected override void Dispose(bool disposing)
         {
-            if ( disposing && ( components != null ) )
+            if (disposing && (components != null))
             {
                 components.Dispose();
             }
-            base.Dispose( disposing );
+            base.Dispose(disposing);
         }
 
         #region Windows Form 디자이너에서 생성한 코드
@@ -41,7 +41,6 @@
             this.txtPLC_Model = new System.Windows.Forms.TextBox();
             this.chkPLC_InspStart = new System.Windows.Forms.CheckBox();
             this.btnImageLoad01 = new System.Windows.Forms.Button();
-            this.btnImageClear01 = new System.Windows.Forms.Button();
             this.chkPositive01 = new System.Windows.Forms.CheckBox();
             this.tbMin01 = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
@@ -70,10 +69,19 @@
             this.tbMin02 = new System.Windows.Forms.TrackBar();
             this.tbMax02 = new System.Windows.Forms.TrackBar();
             this.btnImageLoad02 = new System.Windows.Forms.Button();
-            this.btnImageClear02 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.btnRunInspection = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lstComm = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lstVision = new System.Windows.Forms.ListBox();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axCVdisplay1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axCVgrabber1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axCVimage1)).BeginInit();
@@ -84,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.axCVimage2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMin02)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMax02)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // axCVdisplay1
@@ -110,6 +119,7 @@
             this.axCVgrabber1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCVgrabber1.OcxState")));
             this.axCVgrabber1.Size = new System.Drawing.Size(32, 32);
             this.axCVgrabber1.TabIndex = 1;
+            this.axCVgrabber1.ImageUpdated += new System.EventHandler(this.axCVgrabber1_ImageUpdated);
             // 
             // axCVimage1
             // 
@@ -119,12 +129,13 @@
             this.axCVimage1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCVimage1.OcxState")));
             this.axCVimage1.Size = new System.Drawing.Size(32, 32);
             this.axCVimage1.TabIndex = 2;
+            this.axCVimage1.ImageUpdated += new System.EventHandler(this.axCVimage1_ImageUpdated);
             // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(603, 168);
             this.label1.Name = "label1";
@@ -180,23 +191,17 @@
             // 
             // btnImageLoad01
             // 
-            this.btnImageLoad01.Location = new System.Drawing.Point(603, 317);
+            this.btnImageLoad01.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnImageLoad01.FlatAppearance.BorderSize = 0;
+            this.btnImageLoad01.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImageLoad01.ForeColor = System.Drawing.Color.White;
+            this.btnImageLoad01.Location = new System.Drawing.Point(603, 248);
             this.btnImageLoad01.Name = "btnImageLoad01";
             this.btnImageLoad01.Size = new System.Drawing.Size(100, 31);
             this.btnImageLoad01.TabIndex = 5;
             this.btnImageLoad01.Text = "ImageLoad01";
-            this.btnImageLoad01.UseVisualStyleBackColor = true;
+            this.btnImageLoad01.UseVisualStyleBackColor = false;
             this.btnImageLoad01.Click += new System.EventHandler(this.btnImageLoad01_Click);
-            // 
-            // btnImageClear01
-            // 
-            this.btnImageClear01.Location = new System.Drawing.Point(703, 317);
-            this.btnImageClear01.Name = "btnImageClear01";
-            this.btnImageClear01.Size = new System.Drawing.Size(101, 31);
-            this.btnImageClear01.TabIndex = 5;
-            this.btnImageClear01.Text = "ImageClear01";
-            this.btnImageClear01.UseVisualStyleBackColor = true;
-            this.btnImageClear01.Click += new System.EventHandler(this.btnImageClear01_Click);
             // 
             // chkPositive01
             // 
@@ -225,7 +230,7 @@
             // 
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(61, 315);
             this.label2.Name = "label2";
@@ -238,7 +243,7 @@
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(61, 347);
             this.label3.Name = "label3";
@@ -261,7 +266,7 @@
             // 
             this.EdgeThresholdMin01.BackColor = System.Drawing.Color.White;
             this.EdgeThresholdMin01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EdgeThresholdMin01.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.EdgeThresholdMin01.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.EdgeThresholdMin01.ForeColor = System.Drawing.Color.Black;
             this.EdgeThresholdMin01.Location = new System.Drawing.Point(100, 315);
             this.EdgeThresholdMin01.Name = "EdgeThresholdMin01";
@@ -274,7 +279,7 @@
             // 
             this.EdgeThresholdMax01.BackColor = System.Drawing.Color.White;
             this.EdgeThresholdMax01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EdgeThresholdMax01.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.EdgeThresholdMax01.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.EdgeThresholdMax01.ForeColor = System.Drawing.Color.Black;
             this.EdgeThresholdMax01.Location = new System.Drawing.Point(100, 347);
             this.EdgeThresholdMax01.Name = "EdgeThresholdMax01";
@@ -285,113 +290,107 @@
             // 
             // label6
             // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(602, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 22);
             this.label6.TabIndex = 3;
-            this.label6.Text = "Status PLC";
+            this.label6.Text = "PLC";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPLC_HB
             // 
             this.lblPLC_HB.BackColor = System.Drawing.Color.White;
             this.lblPLC_HB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPLC_HB.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPLC_HB.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPLC_HB.ForeColor = System.Drawing.Color.Black;
-            this.lblPLC_HB.Location = new System.Drawing.Point(602, 46);
+            this.lblPLC_HB.Location = new System.Drawing.Point(683, 49);
             this.lblPLC_HB.Name = "lblPLC_HB";
-            this.lblPLC_HB.Size = new System.Drawing.Size(100, 22);
+            this.lblPLC_HB.Size = new System.Drawing.Size(19, 18);
             this.lblPLC_HB.TabIndex = 3;
-            this.lblPLC_HB.Text = "Alive Flicker";
             this.lblPLC_HB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPLC_InspStart
             // 
             this.lblPLC_InspStart.BackColor = System.Drawing.Color.White;
             this.lblPLC_InspStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPLC_InspStart.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPLC_InspStart.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPLC_InspStart.ForeColor = System.Drawing.Color.Black;
-            this.lblPLC_InspStart.Location = new System.Drawing.Point(602, 68);
+            this.lblPLC_InspStart.Location = new System.Drawing.Point(683, 70);
             this.lblPLC_InspStart.Name = "lblPLC_InspStart";
-            this.lblPLC_InspStart.Size = new System.Drawing.Size(100, 22);
+            this.lblPLC_InspStart.Size = new System.Drawing.Size(19, 18);
             this.lblPLC_InspStart.TabIndex = 3;
-            this.lblPLC_InspStart.Text = "Insp Start";
             this.lblPLC_InspStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(704, 24);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(100, 22);
             this.label10.TabIndex = 3;
-            this.label10.Text = "Status PC";
+            this.label10.Text = "PC";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPC_HB
             // 
             this.lblPC_HB.BackColor = System.Drawing.Color.White;
             this.lblPC_HB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPC_HB.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPC_HB.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPC_HB.ForeColor = System.Drawing.Color.Black;
-            this.lblPC_HB.Location = new System.Drawing.Point(704, 46);
+            this.lblPC_HB.Location = new System.Drawing.Point(783, 49);
             this.lblPC_HB.Name = "lblPC_HB";
-            this.lblPC_HB.Size = new System.Drawing.Size(100, 22);
+            this.lblPC_HB.Size = new System.Drawing.Size(20, 18);
             this.lblPC_HB.TabIndex = 3;
-            this.lblPC_HB.Text = "Alive Flicker";
             this.lblPC_HB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPC_InspStart
             // 
             this.lblPC_InspStart.BackColor = System.Drawing.Color.White;
             this.lblPC_InspStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPC_InspStart.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPC_InspStart.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPC_InspStart.ForeColor = System.Drawing.Color.Black;
-            this.lblPC_InspStart.Location = new System.Drawing.Point(704, 68);
+            this.lblPC_InspStart.Location = new System.Drawing.Point(783, 70);
             this.lblPC_InspStart.Name = "lblPC_InspStart";
-            this.lblPC_InspStart.Size = new System.Drawing.Size(100, 22);
+            this.lblPC_InspStart.Size = new System.Drawing.Size(20, 18);
             this.lblPC_InspStart.TabIndex = 3;
-            this.lblPC_InspStart.Text = "InspStart";
             this.lblPC_InspStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPC_InspEnd
             // 
             this.lblPC_InspEnd.BackColor = System.Drawing.Color.White;
             this.lblPC_InspEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPC_InspEnd.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPC_InspEnd.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPC_InspEnd.ForeColor = System.Drawing.Color.Black;
-            this.lblPC_InspEnd.Location = new System.Drawing.Point(704, 90);
+            this.lblPC_InspEnd.Location = new System.Drawing.Point(783, 92);
             this.lblPC_InspEnd.Name = "lblPC_InspEnd";
-            this.lblPC_InspEnd.Size = new System.Drawing.Size(100, 22);
+            this.lblPC_InspEnd.Size = new System.Drawing.Size(20, 18);
             this.lblPC_InspEnd.TabIndex = 3;
-            this.lblPC_InspEnd.Text = "InspEnd";
             this.lblPC_InspEnd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPC_TotalJudge
             // 
             this.lblPC_TotalJudge.BackColor = System.Drawing.Color.White;
             this.lblPC_TotalJudge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPC_TotalJudge.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPC_TotalJudge.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPC_TotalJudge.ForeColor = System.Drawing.Color.Black;
-            this.lblPC_TotalJudge.Location = new System.Drawing.Point(704, 112);
+            this.lblPC_TotalJudge.Location = new System.Drawing.Point(765, 120);
             this.lblPC_TotalJudge.Name = "lblPC_TotalJudge";
-            this.lblPC_TotalJudge.Size = new System.Drawing.Size(100, 47);
+            this.lblPC_TotalJudge.Size = new System.Drawing.Size(38, 31);
             this.lblPC_TotalJudge.TabIndex = 3;
-            this.lblPC_TotalJudge.Text = "Judge";
             this.lblPC_TotalJudge.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSystemTime
             // 
             this.lblSystemTime.BackColor = System.Drawing.Color.White;
             this.lblSystemTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblSystemTime.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblSystemTime.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblSystemTime.ForeColor = System.Drawing.Color.Black;
             this.lblSystemTime.Location = new System.Drawing.Point(602, 1);
             this.lblSystemTime.Name = "lblSystemTime";
@@ -406,6 +405,9 @@
             // 
             // axCVdisplay2
             // 
+            this.axCVdisplay2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.axCVdisplay2.Location = new System.Drawing.Point(301, 24);
             this.axCVdisplay2.Name = "axCVdisplay2";
             this.axCVdisplay2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCVdisplay2.OcxState")));
@@ -420,6 +422,7 @@
             this.axCVgrabber2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCVgrabber2.OcxState")));
             this.axCVgrabber2.Size = new System.Drawing.Size(32, 32);
             this.axCVgrabber2.TabIndex = 1;
+            this.axCVgrabber2.ImageUpdated += new System.EventHandler(this.axCVgrabber2_ImageUpdated);
             // 
             // axCVimage2
             // 
@@ -429,12 +432,13 @@
             this.axCVimage2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCVimage2.OcxState")));
             this.axCVimage2.Size = new System.Drawing.Size(32, 32);
             this.axCVimage2.TabIndex = 2;
+            this.axCVimage2.ImageUpdated += new System.EventHandler(this.axCVimage2_ImageUpdated);
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(358, 315);
             this.label4.Name = "label4";
@@ -447,7 +451,7 @@
             // 
             this.EdgeThresholdMin02.BackColor = System.Drawing.Color.White;
             this.EdgeThresholdMin02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EdgeThresholdMin02.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.EdgeThresholdMin02.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.EdgeThresholdMin02.ForeColor = System.Drawing.Color.Black;
             this.EdgeThresholdMin02.Location = new System.Drawing.Point(397, 315);
             this.EdgeThresholdMin02.Name = "EdgeThresholdMin02";
@@ -460,7 +464,7 @@
             // 
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label7.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(358, 347);
             this.label7.Name = "label7";
@@ -473,7 +477,7 @@
             // 
             this.EdgeThresholdMax02.BackColor = System.Drawing.Color.White;
             this.EdgeThresholdMax02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EdgeThresholdMax02.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.EdgeThresholdMax02.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.EdgeThresholdMax02.ForeColor = System.Drawing.Color.Black;
             this.EdgeThresholdMax02.Location = new System.Drawing.Point(397, 347);
             this.EdgeThresholdMax02.Name = "EdgeThresholdMax02";
@@ -517,29 +521,23 @@
             // 
             // btnImageLoad02
             // 
-            this.btnImageLoad02.Location = new System.Drawing.Point(603, 348);
+            this.btnImageLoad02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnImageLoad02.FlatAppearance.BorderSize = 0;
+            this.btnImageLoad02.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImageLoad02.ForeColor = System.Drawing.Color.White;
+            this.btnImageLoad02.Location = new System.Drawing.Point(704, 248);
             this.btnImageLoad02.Name = "btnImageLoad02";
             this.btnImageLoad02.Size = new System.Drawing.Size(100, 31);
             this.btnImageLoad02.TabIndex = 5;
             this.btnImageLoad02.Text = "ImageLoad02";
-            this.btnImageLoad02.UseVisualStyleBackColor = true;
+            this.btnImageLoad02.UseVisualStyleBackColor = false;
             this.btnImageLoad02.Click += new System.EventHandler(this.btnImageLoad02_Click);
-            // 
-            // btnImageClear02
-            // 
-            this.btnImageClear02.Location = new System.Drawing.Point(703, 348);
-            this.btnImageClear02.Name = "btnImageClear02";
-            this.btnImageClear02.Size = new System.Drawing.Size(100, 31);
-            this.btnImageClear02.TabIndex = 5;
-            this.btnImageClear02.Text = "ImageClear02";
-            this.btnImageClear02.UseVisualStyleBackColor = true;
-            this.btnImageClear02.Click += new System.EventHandler(this.btnImageClear02_Click);
             // 
             // label9
             // 
             this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label9.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label9.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(1, 1);
             this.label9.Name = "label9";
@@ -552,7 +550,7 @@
             // 
             this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label11.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label11.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(301, 1);
             this.label11.Name = "label11";
@@ -563,27 +561,146 @@
             // 
             // btnRunInspection
             // 
+            this.btnRunInspection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnRunInspection.FlatAppearance.BorderSize = 0;
+            this.btnRunInspection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRunInspection.ForeColor = System.Drawing.Color.White;
             this.btnRunInspection.Location = new System.Drawing.Point(603, 285);
             this.btnRunInspection.Name = "btnRunInspection";
             this.btnRunInspection.Size = new System.Drawing.Size(200, 31);
             this.btnRunInspection.TabIndex = 5;
-            this.btnRunInspection.Text = "ImageLoad01";
-            this.btnRunInspection.UseVisualStyleBackColor = true;
+            this.btnRunInspection.Text = "Edge Finder";
+            this.btnRunInspection.UseVisualStyleBackColor = false;
             this.btnRunInspection.Click += new System.EventHandler(this.btnRunInspection_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(607, 74);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 12);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Insp Start";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(607, 52);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(73, 12);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Alive Flicker";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(708, 130);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 12);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Judge";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(708, 96);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(59, 12);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Insp. End";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(708, 74);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 12);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Insp. Start";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(708, 52);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 12);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Alive Flicker";
+            // 
+            // lstComm
+            // 
+            this.lstComm.FormattingEnabled = true;
+            this.lstComm.ItemHeight = 12;
+            this.lstComm.Location = new System.Drawing.Point(6, 20);
+            this.lstComm.Name = "lstComm";
+            this.lstComm.Size = new System.Drawing.Size(227, 172);
+            this.lstComm.TabIndex = 14;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lstVision);
+            this.groupBox1.Controls.Add(this.lstComm);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(809, 1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(239, 378);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Logs";
+            // 
+            // lstVision
+            // 
+            this.lstVision.FormattingEnabled = true;
+            this.lstVision.ItemHeight = 12;
+            this.lstVision.Location = new System.Drawing.Point(6, 200);
+            this.lstVision.Name = "lstVision";
+            this.lstVision.Size = new System.Drawing.Size(227, 172);
+            this.lstVision.TabIndex = 15;
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Location = new System.Drawing.Point(624, 329);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(165, 37);
+            this.btnExit.TabIndex = 16;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // frmSample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(804, 381);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(1048, 381);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.axCVimage2);
+            this.Controls.Add(this.axCVgrabber2);
+            this.Controls.Add(this.axCVimage1);
+            this.Controls.Add(this.axCVgrabber1);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.lblPLC_HB);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.tbMax02);
             this.Controls.Add(this.tbMax01);
             this.Controls.Add(this.tbMin02);
             this.Controls.Add(this.tbMin01);
             this.Controls.Add(this.txtPLC_Model);
-            this.Controls.Add(this.btnImageClear02);
-            this.Controls.Add(this.btnImageClear01);
             this.Controls.Add(this.btnImageLoad02);
             this.Controls.Add(this.btnRunInspection);
             this.Controls.Add(this.btnImageLoad01);
@@ -605,21 +722,17 @@
             this.Controls.Add(this.lblPLC_InspStart);
             this.Controls.Add(this.lblPC_InspStart);
             this.Controls.Add(this.lblPC_HB);
-            this.Controls.Add(this.lblPLC_HB);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.lblSystemTime);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.axCVimage2);
-            this.Controls.Add(this.axCVgrabber2);
-            this.Controls.Add(this.axCVimage1);
-            this.Controls.Add(this.axCVgrabber1);
             this.Controls.Add(this.axCVdisplay2);
             this.Controls.Add(this.axCVdisplay1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSample";
-            this.Text = "Edge Sample";
+            this.Text = "Edge Detection Sample";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSample_FormClosing);
             this.Load += new System.EventHandler(this.frmSample_Load);
             ((System.ComponentModel.ISupportInitialize)(this.axCVdisplay1)).EndInit();
@@ -632,6 +745,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.axCVimage2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMin02)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMax02)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,13 +758,13 @@
         private System.Windows.Forms.Timer tmrSystem;
         private AxCVGRABBERLib.AxCVgrabber axCVgrabber1;
         private AxCVIMAGELib.AxCVimage axCVimage1;
+        private AxCVIMAGELib.AxCVimage axCVimage2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkPLC_HB;
         private System.Windows.Forms.Button btnPLC_ModelWrite;
         private System.Windows.Forms.TextBox txtPLC_Model;
         private System.Windows.Forms.CheckBox chkPLC_InspStart;
         private System.Windows.Forms.Button btnImageLoad01;
-        private System.Windows.Forms.Button btnImageClear01;
         private System.Windows.Forms.CheckBox chkPositive01;
         private System.Windows.Forms.TrackBar tbMin01;
         private System.Windows.Forms.Label label2;
@@ -670,7 +784,7 @@
         private System.Windows.Forms.Timer tmrDebugPLC;
         private AxCVDISPLAYLib.AxCVdisplay axCVdisplay2;
         private AxCVGRABBERLib.AxCVgrabber axCVgrabber2;
-        private AxCVIMAGELib.AxCVimage axCVimage2;
+        private AxCVIMAGELib.AxCVimage axImageListaxCVimage2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label EdgeThresholdMin02;
         private System.Windows.Forms.Label label7;
@@ -679,10 +793,19 @@
         private System.Windows.Forms.TrackBar tbMin02;
         private System.Windows.Forms.TrackBar tbMax02;
         private System.Windows.Forms.Button btnImageLoad02;
-        private System.Windows.Forms.Button btnImageClear02;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnRunInspection;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ListBox lstComm;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox lstVision;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 

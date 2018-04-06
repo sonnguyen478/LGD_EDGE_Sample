@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Interop.Common.CVB
 {
@@ -69,7 +66,7 @@ namespace Interop.Common.CVB
             public int X2;
             public int Y2;
         }
- 
+
 
         #region [ CVB 검사 결과 - 공통 항목 ]
         public struct stResultList
@@ -317,6 +314,56 @@ namespace Interop.Common.CVB
         }
         #endregion [  Filter output]
 
+
+
+        #region [ Edge Iput]
+        public struct stEdgeInputData
+        {
+            public Cvb.Image.IMG OrgImage;
+            public stCvbArea AreaRect;
+
+            public cEnum.eEdgePositive EdgePositive; // true= positive, false =negative
+            public cEnum.eEdgeType EdgeType; // FinadAll ,
+            public int Density;
+
+            public double Threshold;
+            //public int Threshold;
+
+            public int MaxEdge;
+            public int PlaneIndex; // Color plane to be used, mono 일때는 0
+
+            // Pair 만 사용
+            public double Pair_Threshold1;
+            public double Pair_Threshold2;
+            public cEnum.eEdgePositive Pair_PositiveEdge1;
+            public cEnum.eEdgePositive Pair_PositiveEdge2;
+
+            public Cvb.Edge.EDGERESULTS ThresholdResult_In;
+            public double ThresholdResult_Min;
+            public double ThresholdResult_Max;
+
+        }
+        #endregion [ Edge Input]
+        
+        #region [ Edge output]
+        public struct stEdgeOutputData
+        {
+            //public Cvb.Image.IMG OutImage;
+            public bool InspResult; // 검추여부
+
+
+            public Cvb.Edge.TEdgeResult EdgeResult; // 
+
+            public Cvb.Edge.TEdgeResult[] ALL_EdgeResult; // find all 결과
+
+            public Cvb.Edge.TEdgeResult Pair_EdgeResult1; // pair 결과
+            public Cvb.Edge.TEdgeResult Pair_EdgeResult2; // pair 결과
+
+            public Cvb.Edge.EDGERESULTS ThresholdResultOut;
+
+            public string Message;
+        }
+        #endregion [ Edge output]
 
         public struct stCircleInputData
         {

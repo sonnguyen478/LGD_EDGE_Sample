@@ -56,13 +56,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCDriver.dll</HintPath>
     </Reference>
+    <Reference Include="iCVCEdge, Version=2.2.0.0, Culture=neutral, PublicKeyToken=1c1e944060a09e75, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCEdge.dll</HintPath>
+    </Reference>
     <Reference Include="iCVCFoundation, Version=2.18.0.0, Culture=neutral, PublicKeyToken=b9175c267cdd8e19, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCFoundation.dll</HintPath>
     </Reference>
-    <Reference Include="iCVCImg, Version=2.14.0.0, Culture=neutral, PublicKeyToken=b2f68e8c22ab88a7, processorArchitecture=MSIL">
+    <Reference Include="iCVCImg, Version=2.13.0.0, Culture=neutral, PublicKeyToken=b2f68e8c22ab88a7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCImg.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\STEMMER IMAGING\Common Vision Blox\Lib\Net\iCVCImg.dll</HintPath>
     </Reference>
     <Reference Include="iCVCPlugIn, Version=3.4.0.0, Culture=neutral, PublicKeyToken=52e10bd3f5da1e86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,6 +111,7 @@
     <Compile Include="CVB\Struct\cEnum.cs" />
     <Compile Include="CVB\Struct\cStruct.cs" />
     <Compile Include="CVB\UTIL\UtilComm.cs" />
+    <Compile Include="CVB\UTIL\UtilEdge.cs" />
     <Compile Include="CVB\UTIL\UtilImage.cs" />
     <Compile Include="CVB\UTIL\UtilManto.cs" />
     <Compile Include="CVB\UTIL\UtilShapeFinder.cs" />
@@ -220,33 +225,6 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="CVDISPLAYLib">
-      <Guid>{289A0003-32DD-11D3-98F3-0060082C35E6}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CVGRABBERLib">
-      <Guid>{4FC36254-4B46-11D3-9912-0060082C35E6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CVIMAGELib">
-      <Guid>{A9632CBC-48B9-11D3-990E-0060082C35E6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>

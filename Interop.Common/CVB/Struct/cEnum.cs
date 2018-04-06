@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Interop.Common.CVB
 {
 
@@ -241,6 +237,25 @@ namespace Interop.Common.CVB
             HEIGHT_MAP_HEIGHT2 = 53,
             HEIGHT_MAP_HEIGHT3 = 54,
             HEIGHT_MAP_HEIGHT4 = 55
+        }
+
+
+        // edge Positive Or Negative
+        public enum eEdgePositive
+        {
+            Positive,
+            Negative,
+        }
+
+
+        // Edge Type
+        public enum eEdgeType
+        {
+            ALL,
+            FIRST,
+            EDGEPAIR,
+            //ThresHoldResult,
+
         }
     }
 }

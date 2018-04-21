@@ -58,6 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmMain_S04.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain_S04.Designer.cs">
+      <DependentUpon>frmMain_S04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmModelSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModelSettings.Designer.cs">
+      <DependentUpon>frmModelSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSample.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +87,12 @@
     <Compile Include="Support\cBGWorkerEvents.cs" />
     <Compile Include="Support\cDBInfo.cs" />
     <Compile Include="Support\cGlobalDefine.cs" />
+    <EmbeddedResource Include="frmMain_S04.resx">
+      <DependentUpon>frmMain_S04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModelSettings.resx">
+      <DependentUpon>frmModelSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSample.resx">
       <DependentUpon>frmSample.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,8 +160,26 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+    <COMReference Include="CVDISPLAYLib">
+      <Guid>{289A0003-32DD-11D3-98F3-0060082C35E6}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="CVEDGELib">
       <Guid>{CBABDE6B-5F53-4598-A0AA-4F1EC6310BA1}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CVIMAGELib">
+      <Guid>{A9632CBC-48B9-11D3-990E-0060082C35E6}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

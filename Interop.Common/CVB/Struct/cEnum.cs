@@ -257,6 +257,13 @@ namespace Interop.Common.CVB
             //ThresHoldResult,
 
         }
+
+        // Inspection side
+        public enum eEdgeInspSide
+        {
+            Inner = 0,
+            Outer,
+        }
     }
 }
 

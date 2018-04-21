@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Interop.Common.Util
 {
@@ -56,10 +53,10 @@ namespace Interop.Common.Util
         {
             string _text = string.Empty;
 
-            _control.InvokeIfNeeded( () =>
+            _control.InvokeIfNeeded(() =>
             {
                 _text = _control.Text;
-            } );
+            });
 
             return _text;
         }

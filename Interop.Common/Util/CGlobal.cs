@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Interop.Common.Util
 {
@@ -40,23 +36,34 @@ namespace Interop.Common.Util
         public static string CARSPEC1 = "일반";
         public static string CARSPEC2 = "파노";
 
-        #region [ enum ]
-        public enum eCarSpec
-        {
-            ALL = 0,
-            GENERAL = 1,
-            PANORAMA = 2,
-        }
+        // Camera pixel resolution
+        public const double PIXEL_TO_MM = 0.00766f;
 
+        #region [ enum ]
         // 차종 = 모델
         public enum eModel
         {
             ALL = 0,
-            IG = 1,
-            LF = 2,
-            AG = 3,
-            HG = 4,
-            LF_FL = 5,
+            LGD_E61_CG_OCA1 = 1,
+            LGD_E61_CG_OCA1_TOUCH = 2,
+            LGD_E61_CG_OCA1_TOUCH_OCA2 = 3,
+            LGD_E61_CG_OCA1_TOUCH_OCA2_BA = 4,
+            LGD_E61_CG_OCA1_TOUCH_OCA2_BA_METAL = 5,
+            LGD_E61_CG_OCA1_TOUCH_OCA2_BA_METAL_X758 = 6,
+        }
+
+        // Inspection side
+        public enum eInspSide
+        {
+            INSIDE = 0,
+            OUTSIDE = 1,
+        }
+
+        // Edge polarity for edge detector
+        public enum eEdgePolarity
+        {
+            POSITIVE = 0,
+            NEGATIVE = 1,
         }
 
         // 판정
@@ -76,16 +83,16 @@ namespace Interop.Common.Util
 
         public enum eInspWeldingGubun
         {
-            BEFORE=0, // 용접 전
-            AFTER=1,
+            BEFORE = 0, // 용접 전
+            AFTER = 1,
         }
- 
+
         public enum eInspWeldingSide
         {
             LH = 0, //  
             RH = 1,
-            NONE =-1,
-        } 
+            NONE = -1,
+        }
 
         // PLC
         public enum ePLC_Name
@@ -98,7 +105,7 @@ namespace Interop.Common.Util
             INSP_SPEC, // 사양 - 1:일반,  2:PANO
 
             // 대차
-            FRT_FLR=10,
+            FRT_FLR = 10,
             RR_FLR_01,
             RR_FLR_02,
             SIDE_LH,
@@ -107,7 +114,7 @@ namespace Interop.Common.Util
             BB,
             //ROOT,
 
-            READ_WELDING_BEFORE_LH=20, //용접전  Data Read
+            READ_WELDING_BEFORE_LH = 20, //용접전  Data Read
             READ_WELDING_AFTER_LH, //용접후  Data Read
             READ_WELDING_BEFORE_RH, //용접전  Data Read
             READ_WELDING_AFTER_RH, //용접후  Data Read
@@ -136,7 +143,7 @@ namespace Interop.Common.Util
             MEASURE_VAL08_RH,
             MEASURE_VAL09_RH,
             MEASURE_VAL10_RH,
-            MEASURE_VAL11_RH, 
+            MEASURE_VAL11_RH,
         }
 
         //PC
@@ -150,12 +157,12 @@ namespace Interop.Common.Util
             READ_WELDING_AFTER_CONFIRM_RH, //  용접후   Data Read 확인
 
             JUDGE_WELDING_BEFORE_CONFIRM_LH, // 용접전 LH 판정
-            JUDGE_WELDING_AFTER_CONFIRM_LH, 
-            JUDGE_WELDING_BEFORE_CONFIRM_RH, 
+            JUDGE_WELDING_AFTER_CONFIRM_LH,
+            JUDGE_WELDING_BEFORE_CONFIRM_RH,
             JUDGE_WELDING_AFTER_CONFIRM_RH,
 
             //JUDGE_TOTAL, // 판정, 1:OK , 2:NG
-          //  INSP_COMPLET, // 검사 완료 
+            //  INSP_COMPLET, // 검사 완료 
 
             PC_ALRAM, // 0:정상 , 1:SENSOR 이상, 2:검사이상
         }
@@ -212,22 +219,22 @@ namespace Interop.Common.Util
         #endregion [ enum ]
 
         #region [ struct ]
-        public struct structProductCnt
+        public struct stProdCount
         {
-            public uint iTotal;
-            public uint iOK;
-            public double dOKPer;
-            public uint iNG;
-            public double dNGPer;
+            public uint nTotal;
+            public uint nOK;
+            public uint nNG;
+            public float nOKPer;
+            public float nNGPer;
         }
- 
+
         public struct structAlramCnt
         {
             public uint iCarNoParsing;// 차대 없는 경우= MES 에서 정보를 못가져 오는 경우
             public uint iInspect;// 검사 이상
             public uint iACSParsing;// 서버 DB 에 대차 번호가 없는 경우
         }
- 
+
         //public struct structSignalLamp
         //{
         //    public string IP;
@@ -237,8 +244,8 @@ namespace Interop.Common.Util
         //    public Interop.Common.QLightLamp.LampName byPassBeforSignal; // bypass 전 경광등 색
         //}
 
-         
-        #endregion [ struct ] 
+
+        #endregion [ struct ]
 
     }
 }

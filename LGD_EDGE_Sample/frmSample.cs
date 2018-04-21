@@ -1,6 +1,7 @@
 ﻿#define UsePLC
 //#define UseCam
 //#define UseDatabase
+#define INSPECTION_STEP04
 
 using System;
 using System.ComponentModel;
@@ -22,6 +23,7 @@ namespace LGD_EDGE_Sample
 
         private AxCVDISPLAYLib.AxCVdisplay[] axDisplayList; // 화면
         private AxCVIMAGELib.AxCVimage[] axImageList;// Image
+        private AxCVGRABBERLib.AxCVgrabber[] axGrabberList;
         private Interop.Common.CVB.cStruct.stEdgeInputData[] settingEdgeInputList;
 
         private Interop.Common.Progress.SplashThread loadProgress = null;
@@ -48,6 +50,14 @@ namespace LGD_EDGE_Sample
         {
             InitializeComponent();
 
+            btnModelSettings.Image = (Image)(new Bitmap(btnModelSettings.Image, new Size(32, 32)));
+            //btnManualMode.Image = (Image)(new Bitmap(btnManualMode.Image, new Size(32, 32)));
+            //btnAutoMode.Image = (Image)(new Bitmap(btnAutoMode.Image, new Size(32, 32)));
+            //btnAutoMode1.Image = (Image)(new Bitmap(btnAutoMode1.Image, new Size(32, 32)));
+            btnExit.Image = (Image)(new Bitmap(btnExit.Image, new Size(32, 32)));
+            btnRunInspection.Image = (Image)(new Bitmap(btnRunInspection.Image, new Size(32, 32)));
+
+
             loadProgress = new Interop.Common.Progress.SplashThread();
             loadProgress.AllStepCnt = 9;
         }
@@ -56,7 +66,6 @@ namespace LGD_EDGE_Sample
             try
             {
                 loadProgress.Open();
-
                 // 1 --> Local Database Connecting..
                 loadProgress.UpdateProgress(1, "Local Database Connecting...");
                 if (true == bIsDelay) System.Threading.Thread.Sleep(300);
@@ -100,9 +109,8 @@ namespace LGD_EDGE_Sample
                 loadProgress.UpdateProgress( 5, "Cam Connecting..." );
                 if ( true == bIsDelay ) System.Threading.Thread.Sleep( 300 );
 
-                fnCAM_Initialize();
-                fnCamEventPlus();
                 //mCVBInit();
+                fnCAM_Initialize();
 #endif
                 mCVBInit();
 
@@ -116,6 +124,7 @@ namespace LGD_EDGE_Sample
                 // 7 --> Local Timer 및 기타 설정 완료
                 loadProgress.UpdateProgress(7, "Main UI Loading...");
                 if (true == bIsDelay) System.Threading.Thread.Sleep(300);
+
                 fnSystemEnviromentSettings(true);
 
                 fnDisplayControlsClear();
@@ -159,7 +168,6 @@ namespace LGD_EDGE_Sample
                     fnMxCompomponentClose();
 #endif
 #if UseCam
-                    fnCamEventMinus();
 #endif
 #if UsePLC
                     if (bgWorkPLC != null && bgWorkPLC.IsBusy)
@@ -189,33 +197,19 @@ namespace LGD_EDGE_Sample
         {
             try
             {
+                // Move the marker color to the correspondent button in GUI
+                pnlMenuMarker.Height = btnRunInspection.Height;
+                Control tmp = tblLayoutMain.GetControlFromPosition(0, 1);   // Get location of each table layout, The coordinate of table layout is reference coodrinate
+                Control tmp1 = tblLayoutsub.GetControlFromPosition(1, 0);   // Due to the button is in reference coordinate with the table layout
+                pnlMenuMarker.Top = tblLayoutMain.Top + tmp.Top + tmp1.Top + btnRunInspection.Top;
+                pnlMenuMarker.Left = tblLayoutMain.Left + tmp.Left + tmp1.Left + btnRunInspection.Left - pnlMenuMarker.Width;
+                pnlMenuMarker.Visible = true;
                 // Sample code for edge detection in 2 static images
                 //clearing all previous labels
                 fnCVBDisplayClear();
 
                 mRunInspectionEdge(axImageList);
 
-                //double x0, y0, x1, y1, x2, y2;
-                //x0 = y0 = x1 = y1 = x2 = y2 = 0;
-                //iCVCEdge.CvB.Image.TArea scanArea;
-                //iCVCEdge.Cvb.Edge.TEdgeResult result;
-                //iCVCEdge.Cvb.Edge.TEdgeResult[] resultAll;
-
-                //axCVdisplay.GetSelectedArea(ref x0, ref y0, ref x1, ref y1, ref x2, ref y2);
-                //Cvb.Image.SetArea(x0, y0, x1, y1, x2, y2, out scanArea);
-
-                ////finding first edge
-                //bool located = Cvb.Edge.TFindFirstEdge(axCVimage.Image, 0, 500, scanArea, System.Convert.ToDouble(m_TrackThreshold.Value.ToString()), checkBoxPositive.Checked, out result);
-                ////bool locatedAll = Cvb.Edge.TFindAllEdges(axCVimage.Image, 0, 500, scanArea, System.Convert.ToDouble(m_TrackThreshold.Value.ToString()), checkBoxPositive.Checked, 20, out resultAll);
-
-                //if (located)
-                //{
-                //    for (int idx = 0; idx < resultAll.Length; idx++)
-                //    {
-                //        axCVdisplay.AddLabel("X", false, 255, 0, (int)resultAll[idx].x, (int)resultAll[idx].y);
-                //    }
-                //    axCVdisplay.AddLabel("X", false, 255, 0, (int)result.x, (int)result.y);
-                //}
 
             }
             catch (Exception ex)
@@ -224,37 +218,6 @@ namespace LGD_EDGE_Sample
             }
         }
 
-        private void btnImageLoad01_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog open = new OpenFileDialog())
-            {
-                open.InitialDirectory = "c:\\";
-                open.Filter = "Image files (*.jpg)|*.jpg|All files (*.*)|*.*";
-                open.FilterIndex = 2;
-                open.RestoreDirectory = true;
-
-                if (open.ShowDialog() == DialogResult.OK)
-                {
-                    axCVimage1.LoadImage(open.FileName);
-
-                    Interop.Common.CVB.CCVBOverlay.OverlayLabelRemoveAll(axCVdisplay1);
-                    Interop.Common.CVB.CCVBOverlay.OverlayObjectRemoveAll(axCVdisplay1);
-
-                    axCVdisplay1.Image = axCVimage1.Image;
-                    axCVdisplay1.SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
-                    axCVdisplay1.Refresh();
-                }
-            }
-
-            //string filePath = @"C:\img01.jpg";
-            //axCVimage1.LoadImage( filePath );
-
-            //Interop.Common.CVB.CCVBOverlay.OverlayLabelRemoveAll( axCVdisplay1 );
-            //Interop.Common.CVB.CCVBOverlay.OverlayObjectRemoveAll( axCVdisplay1 );
-
-            //axCVdisplay1.Image = axCVimage1.Image;
-            //axCVdisplay1.Refresh();
-        }
         private void btnImageClear01_Click(object sender, EventArgs e)
         {
 #if UseCam
@@ -265,24 +228,6 @@ namespace LGD_EDGE_Sample
         }
         private void btnImageLoad02_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog open = new OpenFileDialog())
-            {
-                open.InitialDirectory = "c:\\";
-                open.Filter = "Image files (*.jpg)|*.jpg|All files (*.*)|*.*";
-                open.FilterIndex = 2;
-                open.RestoreDirectory = true;
-
-                if (open.ShowDialog() == DialogResult.OK)
-                {
-                    axCVimage2.LoadImage(open.FileName);
-
-                    //Interop.Common.CVB.CCVBOverlay.OverlayLabelRemoveAll(axCVdisplay2);
-                    //Interop.Common.CVB.CCVBOverlay.OverlayObjectRemoveAll(axCVdisplay2);
-
-                    axCVdisplay2.Image = axCVimage2.Image;
-                    axCVdisplay2.Refresh();
-                }
-            }
 
             //string filePath = @"C:\img02.jpg";
             //axCVimage2.LoadImage( filePath );
@@ -637,16 +582,28 @@ namespace LGD_EDGE_Sample
             {
                 driverString = Environment.ExpandEnvironmentVariables("%CVB%") + @"Drivers\GenICam.vin";
 
-                if (axCVimage1.LoadImage(driverString))
+                if (axImageList[0].LoadImage(driverString))
                 { bIsOpen = true; }
                 else
                 { MessageBox.Show("#1 open error"); }
-                if (bIsOpen == true) { if (axCVimage2.LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[1].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[2].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[3].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[4].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[5].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[6].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
+                if (bIsOpen == true) { if (axImageList[7].LoadImage(driverString)) { } else { bIsOpen = false; MessageBox.Show("#2 open error"); } }
 
                 if (bIsOpen == true)
                 {
-                    axCVgrabber1.CamPort = 0; axCVgrabber1.Image = axCVimage1.Image;
-                    axCVgrabber2.CamPort = 1; axCVgrabber2.Image = axCVimage2.Image;
+                    axGrabberList[0].CamPort = 0; axGrabberList[0].Image = axImageList[0].Image;
+                    axGrabberList[1].CamPort = 1; axGrabberList[1].Image = axImageList[1].Image;
+                    axGrabberList[2].CamPort = 2; axGrabberList[2].Image = axImageList[2].Image;
+                    axGrabberList[3].CamPort = 3; axGrabberList[3].Image = axImageList[3].Image;
+                    axGrabberList[4].CamPort = 4; axGrabberList[4].Image = axImageList[4].Image;
+                    axGrabberList[5].CamPort = 5; axGrabberList[5].Image = axImageList[5].Image;
+                    axGrabberList[6].CamPort = 6; axGrabberList[6].Image = axImageList[6].Image;
+                    axGrabberList[7].CamPort = 7; axGrabberList[7].Image = axImageList[7].Image;
                 }
             }
             catch (Exception ex)
@@ -654,50 +611,59 @@ namespace LGD_EDGE_Sample
                 System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
             }
         }
-        private void axCVgrabber_Pos01_ImageUpdated(object sender, System.EventArgs e) { axCVimage1.Image = axCVgrabber1.Image; }
-        private void axCVgrabber_Pos02_ImageUpdated(object sender, System.EventArgs e) { axCVimage2.Image = axCVgrabber2.Image; }
-        private void fnCamEventPlus()
-        {
-            try
-            {
-                axCVgrabber1.ImageUpdated += new System.EventHandler(axCVgrabber_Pos01_ImageUpdated);
-                axCVgrabber2.ImageUpdated += new System.EventHandler(axCVgrabber_Pos02_ImageUpdated);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
-        }
-        private void fnCamEventMinus()
-        {
-            try
-            {
-                axCVgrabber1.ImageUpdated -= new System.EventHandler(axCVgrabber_Pos01_ImageUpdated);
-                axCVgrabber2.ImageUpdated -= new System.EventHandler(axCVgrabber_Pos02_ImageUpdated);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
-        }
+
         private void mCVBInit()
         {
-            axDisplayList = new AxCVDISPLAYLib.AxCVdisplay[2];
+            axDisplayList = new AxCVDISPLAYLib.AxCVdisplay[cGlobalDefine.InspCamCnt];
             axImageList = new AxCVIMAGELib.AxCVimage[cGlobalDefine.InspCamCnt];
+            axGrabberList = new AxCVGRABBERLib.AxCVgrabber[cGlobalDefine.InspCamCnt];
 
             axDisplayList[0] = axCVdisplay1;
             axDisplayList[1] = axCVdisplay2;
+            axDisplayList[2] = axCVdisplay3;
+            axDisplayList[3] = axCVdisplay4;
+            axDisplayList[4] = axCVdisplay5;
+            axDisplayList[5] = axCVdisplay6;
+            axDisplayList[6] = axCVdisplay7;
+            axDisplayList[7] = axCVdisplay8;
 
             axImageList[0] = axCVimage1;
             axImageList[1] = axCVimage2;
+            axImageList[2] = axCVimage3;
+            axImageList[3] = axCVimage4;
+            axImageList[4] = axCVimage5;
+            axImageList[5] = axCVimage6;
+            axImageList[6] = axCVimage7;
+            axImageList[7] = axCVimage8;
+
+            axGrabberList[0] = axCVgrabber1;
+            axGrabberList[1] = axCVgrabber2;
+            axGrabberList[2] = axCVgrabber3;
+            axGrabberList[3] = axCVgrabber4;
+            axGrabberList[4] = axCVgrabber5;
+            axGrabberList[5] = axCVgrabber6;
+            axGrabberList[6] = axCVgrabber7;
+            axGrabberList[7] = axCVgrabber8;
 
             settingEdgeInputList = new Interop.Common.CVB.cStruct.stEdgeInputData[NUM_CAM];
 
             // load default image
             axImageList[0].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
-            axImageList[1].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
             axDisplayList[0].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[1].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
             axDisplayList[1].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[2].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[2].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[3].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[3].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[4].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[4].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[5].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[5].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[6].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[6].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+            axImageList[7].LoadImage(@"%CVB%\Tutorial\ClassicSwitch001.bmp");
+            axDisplayList[7].SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
         }
 
         private void fnCVBDisplayClear()
@@ -1186,37 +1152,332 @@ namespace LGD_EDGE_Sample
 
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            // Move the marker color to the correspondent button in GUI
+            pnlMenuMarker.Height = btnExit.Height;
+            Control tmp = tblLayoutMain.GetControlFromPosition(0, 1);   // Get location of each table layout, The coordinate of table layout is reference coodrinate
+            Control tmp1 = tblLayoutsub.GetControlFromPosition(1, 0);   // Due to the button is in reference coordinate with the table layout
+            pnlMenuMarker.Top = tblLayoutMain.Top + tmp.Top + tmp1.Top + btnExit.Top;
+            pnlMenuMarker.Left = tblLayoutMain.Left + tmp.Left + tmp1.Left + btnExit.Left - pnlMenuMarker.Width;
+            pnlMenuMarker.Visible = true;
+            this.Close();
+        }
+
         private void axCVgrabber2_ImageUpdated(object sender, EventArgs e)
         {
-            axImageList[1].Image = axCVgrabber2.Image;
-            axDisplayList[1].Image = axCVgrabber2.Image;
+            try
+            {
+                axImageList[1].Image = axGrabberList[1].Image;
+                axDisplayList[1].Image = axGrabberList[1].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
         }
 
         private void axCVimage2_ImageUpdated(object sender, EventArgs e)
         {
-            axCVgrabber2.Image = axImageList[1].Image;
-            axDisplayList[1].Image = axImageList[1].Image;
+            try
+            {
+                axGrabberList[1].Image = axImageList[1].Image;
+                axDisplayList[1].Image = axImageList[1].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
         }
 
         private void axCVgrabber1_ImageUpdated(object sender, EventArgs e)
         {
-            axImageList[0].Image = axCVgrabber1.Image;
-            axDisplayList[0].Image = axCVgrabber1.Image;
+            try
+            {
+                axImageList[0].Image = axGrabberList[0].Image;
+                axDisplayList[0].Image = axGrabberList[0].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
         }
 
         private void axCVimage1_ImageUpdated(object sender, EventArgs e)
         {
-            axCVgrabber1.Image = axImageList[0].Image;
-            axDisplayList[0].Image = axImageList[0].Image;
+            try
+            {
+                axGrabberList[0].Image = axImageList[0].Image;
+                axDisplayList[0].Image = axImageList[0].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void axCVgrabber3_ImageUpdated(object sender, EventArgs e)
         {
-            this.Close();
+            try
+            {
+                axImageList[2].Image = axGrabberList[2].Image;
+                axDisplayList[2].Image = axGrabberList[2].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
         }
 
+        private void axCVimage3_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[2].Image = axImageList[2].Image;
+                axDisplayList[2].Image = axImageList[2].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
 
+        private void axCVgrabber4_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axImageList[3].Image = axGrabberList[3].Image;
+                axDisplayList[3].Image = axGrabberList[3].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
 
+        private void axCVimage4_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[3].Image = axImageList[3].Image;
+                axDisplayList[3].Image = axImageList[3].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVgrabber5_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axImageList[4].Image = axGrabberList[4].Image;
+                axDisplayList[4].Image = axGrabberList[4].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVimage5_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[4].Image = axImageList[4].Image;
+                axDisplayList[4].Image = axImageList[4].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVgrabber6_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axImageList[5].Image = axGrabberList[5].Image;
+                axDisplayList[5].Image = axGrabberList[5].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVimage6_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[5].Image = axImageList[5].Image;
+                axDisplayList[5].Image = axImageList[5].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVgrabber7_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axImageList[6].Image = axGrabberList[6].Image;
+                axDisplayList[6].Image = axGrabberList[6].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVimage7_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[6].Image = axImageList[6].Image;
+                axDisplayList[6].Image = axImageList[6].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVgrabber8_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axImageList[7].Image = axGrabberList[7].Image;
+                axDisplayList[7].Image = axGrabberList[7].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void axCVimage8_ImageUpdated(object sender, EventArgs e)
+        {
+            try
+            {
+                axGrabberList[7].Image = axImageList[7].Image;
+                axDisplayList[7].Image = axImageList[7].Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void btnModelSettings_MouseEnter(object sender, EventArgs e)
+        {
+            //btnModelSettings.BackColor = Color.FromArgb(111, 111, 112);
+        }
+
+        private void btnModelSettings_MouseLeave(object sender, EventArgs e)
+        {
+            //btnModelSettings.BackColor = Color.FromArgb(45, 45, 48);
+        }
+
+        private void axCVdisplay1_DblClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog open = new OpenFileDialog())
+            {
+                open.InitialDirectory = "c:\\";
+                open.Filter = "Image files (*.jpg)|*.jpg|All files (*.*)|*.*";
+                open.FilterIndex = 2;
+                open.RestoreDirectory = true;
+
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    axCVimage1.LoadImage(open.FileName);
+
+                    Interop.Common.CVB.CCVBOverlay.OverlayLabelRemoveAll(axCVdisplay1);
+                    Interop.Common.CVB.CCVBOverlay.OverlayObjectRemoveAll(axCVdisplay1);
+
+                    axCVdisplay1.Image = axCVimage1.Image;
+                    axCVdisplay1.SetSelectedArea(50.0, 340.0, 50.0, 360.0, 590.0, 340.0);
+                    axCVdisplay1.Refresh();
+                }
+            }
+        }
+
+        private void axCVdisplay2_DblClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog open = new OpenFileDialog())
+            {
+                open.InitialDirectory = "c:\\";
+                open.Filter = "Image files (*.jpg)|*.jpg|All files (*.*)|*.*";
+                open.FilterIndex = 2;
+                open.RestoreDirectory = true;
+
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    axCVimage2.LoadImage(open.FileName);
+
+                    //Interop.Common.CVB.CCVBOverlay.OverlayLabelRemoveAll(axCVdisplay2);
+                    //Interop.Common.CVB.CCVBOverlay.OverlayObjectRemoveAll(axCVdisplay2);
+
+                    axCVdisplay2.Image = axCVimage2.Image;
+                    axCVdisplay2.Refresh();
+                }
+            }
+        }
+
+        private void btnModelSettings_Click(object sender, EventArgs e)
+        {
+            // Move the marker color to the correspondent button in GUI
+            pnlMenuMarker.Height = btnModelSettings.Height;
+            pnlMenuMarker.Top = btnModelSettings.Top;
+            Control tmp = tblLayoutMain.GetControlFromPosition(0, 1);   // Get location of each table layout, The coordinate of table layout is reference coodrinate
+            Control tmp1 = tblLayoutsub.GetControlFromPosition(1, 0);   // Due to the button is in reference coordinate with the table layout
+            pnlMenuMarker.Top = tblLayoutMain.Top + tmp.Top + tmp1.Top + btnModelSettings.Top;
+            pnlMenuMarker.Left = tblLayoutMain.Left + tmp.Left + tmp1.Left + btnModelSettings.Left - pnlMenuMarker.Width;
+            pnlMenuMarker.Visible = true;
+
+            // Load Model Setting form
+            try
+            {
+#if INSPECTION_STEP04
+#else
+                using (frmModelSettings modelSet = new frmModelSettings(this, localdbConn))
+                {
+                    // Turn off the Main Inspection form
+                    // to focus on the Model Settings only
+                    this.Visible = false;
+                    modelSet.ShowDialog(this);
+                }
+#endif
+            }
+            catch (Exception ex)
+            {
+                logException("btnModelSetting_Click Error : " + ex.Message.ToString());
+            }
+        }
+
+        private void btnAutoMode_Click(object sender, EventArgs e)
+        {
+            // Move the marker color to the correspondent button in GUI
+            pnlMenuMarker.Height = btnAutoMode.Height;
+            Control tmp = tblLayoutMain.GetControlFromPosition(0, 1);   // Get location of each table layout, The coordinate of table layout is reference coodrinate
+            Control tmp1 = tblLayoutsub.GetControlFromPosition(1, 0);   // Due to the button is in reference coordinate with the table layout
+            pnlMenuMarker.Top = tblLayoutMain.Top + tmp.Top + tmp1.Top + btnAutoMode.Top;
+            pnlMenuMarker.Left = tblLayoutMain.Left + tmp.Left + tmp1.Left + btnAutoMode.Left - pnlMenuMarker.Width;
+            pnlMenuMarker.Visible = true;
+        }
+
+        private void radAutoMod_CheckedChanged(object sender, EventArgs e)
+        {
+            //radManualMod.Checked = false;
+        }
+
+        private void radManualMod_CheckedChanged(object sender, EventArgs e)
+        {
+            //radAutoMod.Checked = false;
+        }
 
     }
 }

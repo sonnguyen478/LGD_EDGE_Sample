@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace Interop.Common.Util
@@ -23,13 +20,13 @@ namespace Interop.Common.Util
         }
 
         static string path_Log = string.Empty;
-        static string path_Basic = @"\BASIC\";
-        static string path_Comm = @"\COMM\";
-        static string path_Complete = @"\COMPLETE\";
-        static string path_Exception = @"\EXCEPTION\";
-        static string path_Alarm = @"\ALARM\";
-        static string path_Setting = @"\SETTING\";
-        static string path_Test = @"\DB\";
+        static string path_Basic = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\BASIC\";
+        static string path_Comm = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\COMM\";
+        static string path_Complete = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\COMPLETE\";
+        static string path_Exception = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\EXCEPTION\";
+        static string path_Alarm = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\ALARM\";
+        static string path_Setting = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\SETTING\";
+        static string path_Test = @"D:\SONNGUYEN\07_Projects\02_LGD_VN_LCDInspection\01_Source\DB\";
 
         public static void mPathLog(string sPath)
         {
@@ -39,7 +36,7 @@ namespace Interop.Common.Util
 
         public static void FileWrite_Str(string _str, eLogType _log_type)
         {
-            lock ( LockObject )
+            lock (LockObject)
             {
                 string strPath = "";
                 string strLog = "";
@@ -50,10 +47,10 @@ namespace Interop.Common.Util
                 DateTime date_now = DateTime.Now;
 
                 //month = date_now.ToString("MM") + "월\\";
-                days = date_now.ToString( "dd" ) + " Day.log";
-                dateTime = date_now.ToString( "yyyy-MM-dd HH:mm:ss" );
+                days = date_now.ToString("dd") + " Day.log";
+                dateTime = date_now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                switch ( _log_type )
+                switch (_log_type)
                 {
                     case eLogType.LOG:
                         strPath = path_Basic;
@@ -91,42 +88,42 @@ namespace Interop.Common.Util
                 try
                 {
                     //디렉토리 생성하기
-                    if ( !Directory.Exists( strPath ) )
-                        Directory.CreateDirectory( strPath );
+                    if (!Directory.Exists(strPath))
+                        Directory.CreateDirectory(strPath);
 
                     //파일이 없을 경우 1601을 리턴한다.
                     //if (File.GetCreationTime(@strPath + days).Month != date_now.Month) {
-                    if ( File.GetLastWriteTime( @strPath + days ).Month != date_now.Month )
+                    if (File.GetLastWriteTime(@strPath + days).Month != date_now.Month)
                     {
-                        ( new FileInfo( @strPath + days ) ).Delete();
-                        fs = new FileStream( @strPath + days, FileMode.Create, FileAccess.Write, FileShare.None );
+                        (new FileInfo(@strPath + days)).Delete();
+                        fs = new FileStream(@strPath + days, FileMode.Create, FileAccess.Write, FileShare.None);
                     }
                     else
                     {
-                        fs = new FileStream( @strPath + days, FileMode.Append, FileAccess.Write, FileShare.None );
+                        fs = new FileStream(@strPath + days, FileMode.Append, FileAccess.Write, FileShare.None);
                     }
 
-                    sw = new StreamWriter( fs, System.Text.Encoding.UTF8 );
+                    sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
 
-                    sw.WriteLine( strLog );
+                    sw.WriteLine(strLog);
                     sw.Flush();
                     fs.Flush();
                 }
-                catch ( Exception ex )
+                catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine( ex.Message.ToString() );
+                    System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                     //System.Windows.Forms.MessageBox.Show("Error:FileWrite_Str() " + ex.ToString());
                 }
                 finally
                 {
-                    if ( sw != null )
+                    if (sw != null)
                     {
                         sw.Close();
                         sw.Dispose();
                         sw = null;
                     }
 
-                    if ( fs != null )
+                    if (fs != null)
                     {
                         fs.Close();
                         fs.Dispose();

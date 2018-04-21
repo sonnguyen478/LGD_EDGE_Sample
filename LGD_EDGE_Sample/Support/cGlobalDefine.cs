@@ -21,7 +21,7 @@ namespace LGD_EDGE_Sample
         public static int CROSS_LINE_LENGTH = 200;
         public static int EDGE_INSP_STEP = 10; // edge 간적
 
-        public static int InspCamCnt = 2;
+        public static int InspCamCnt = 8;
 
         public const int cLabel = 100;
         public const int cCross = 1000;
